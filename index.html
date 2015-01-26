@@ -47,46 +47,52 @@
   </nav>
 
   <div class="container">
-    <table>
+    <table class="instumentation-table">
       <thead>
         <tr>
-        <th>作曲者</th>
-        <th>曲名</th>
-        <th>Fl</th>
-        <th>Ob</th>
-        <th>Cl</th> <!-- Bb or A -->
-        <th>Fg</th>
-        <th>Tp</th>
-        <th>Tb</th>
-        <th>Hr</th>
-        <th>Tuba</th>
-        <th>Timp</th>
-        <th>Others</th>
-        <!-- Picc, E.Hr, Bs.Cl, C.Fg, Harp, Celesta, Perc -->
+          <th>作曲者</th>
+          <th>曲名</th>
+          <th>Fl</th>
+          <th>Ob</th>
+          <th>Cl</th> <!-- Bb or A -->
+          <th>Fg</th>
+          <th>Tp</th>
+          <th>Tb</th>
+          <th>Hr</th>
+          <th>Tuba</th>
+          <th>Timp</th>
+          <th>Others</th>
+          <!-- Picc, E.Hr, Bs.Cl, C.Fg, Harp, Celesta, Perc -->
         </tr>
       </thead>
       <tbody>
-        <tr>
-        <td>Beethoven</td>
-        <td>2</td>
-        <td>2</td>
-        <td>2(Bb)</td>
-        <td>2</td>
-        <td>2</td>
-        <td>3</td>
-        <td></td>
-        <td></td>
-        <td>1</td>
-        <td></td>
+        <tr id="piece" data-fl="2">
+          <td class="artist">Beethoven</td>
+          <td class="fl">2</td>
+          <td class="ob">2</td>
+          <td class="cl">2(Bb)</td>
+          <td class="fg">2</td>
+          <td class="tp">2</td>
+          <td class="tb">3</td>
+          <td class="hr"></td>
+          <td class="tuba"></td>
+          <td class="timp">1</td>
+          <td class="others">1</td>
+          <td></td>
         </tr>
       <tbody>
     </table>
   </div>
 
+  <a href="javascript:change_artist()" >aaaaaaaa</a>
+
   <!-- JQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+  <!-- Find music script -->
+  <script src="js/find-music.js"></script>
 </body>
 
 </html>
