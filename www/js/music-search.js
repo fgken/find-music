@@ -7,10 +7,19 @@ $(function(){
 		min: 0,
 		spin: function( event, ui ){ setTimeout("search()", 10); }
 	});
+	$("input.spinner").width(30);
+	
+	$("button#clear").click(function() {
+		clear_search_form();
+	});
 	
 //	$("table.instrumentation-table").tablesorter();
 });
 
+function clear_search_form() {
+	$("input").val("");
+	search();
+}
 
 
 function search() {
@@ -32,6 +41,7 @@ function search() {
 
     // いったん全部けしてから，
     $("tbody tr").addClass("hide");
+    $("button#clear").removeClass("hide");
 
     hit_count = 0;
     $("tbody tr").each(function(idx) {
@@ -41,6 +51,9 @@ function search() {
 			//console.log(key+","+value);
 
 			if (value == "") continue;
+			
+			// ここにくる = 検索条件の指定がある
+			$("button#clear").removeClass("hide");
 
 			if ($(this).data(key) != value){
 			   console.log(key + "," + value);

@@ -10,3 +10,30 @@ span.error {
 	color: red;
 }
 
+label {
+	width: 80px;
+	text-align: right;
+}
+
+label[for=artist] {
+	width: 100px !important;
+}
+
+input.spinner {
+	width: 30px;
+}
+
+input#others {
+	width: 330px;
+}
+
+input#artist {
+	width: 400px;
+}
+input#name {
+	width: 400px;
+}
+
+div.second-line {
+	margin-top: 5px;
+}
