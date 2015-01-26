@@ -11,6 +11,7 @@ $(function(){
 	
 	$("button#clear").click(function() {
 		clear_search_form();
+		$(this).addClass("hide");
 	});
 	
 //	$("table.instrumentation-table").tablesorter();
