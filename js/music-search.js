@@ -2,8 +2,6 @@ $(function(){
 	$("input").keyup(function() {
 		search();
 	});
-	
-	$("table.instrumentation-table").tablesorter();
 });
 
 function search() {

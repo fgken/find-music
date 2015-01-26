@@ -119,17 +119,18 @@ table.each_with_index do |row, count|
 end
 
 html += <<"EOS"
+<<<<<<< HEAD
+      <tbody>
+=======
       </tbody>
+>>>>>>> 01bbb32ef372cb27fd5ba3f11aca11f45f244ba9
     </table>
   </div>
-
-  <a href="javascript:change_artist()" >aaaaaaaa</a>
 
   <!-- JQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <script src="js/jquery.tablesorter.min.js"></script>
 
   <!-- Find music script -->
   <script src="js/music-search.js"></script>
