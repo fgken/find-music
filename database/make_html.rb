@@ -119,21 +119,7 @@ table.each_with_index do |row, count|
 end
 
 html += <<"EOS"
-        <tr id="piece" data-fl="2">
-          <td class="artist">Beethoven</td>
-          <td class="fl">2</td>
-          <td class="ob">2</td>
-          <td class="cl">2(Bb)</td>
-          <td class="fg">2</td>
-          <td class="tp">2</td>
-          <td class="tb">3</td>
-          <td class="hr"></td>
-          <td class="tuba"></td>
-          <td class="timp">1</td>
-          <td class="others">1</td>
-          <td></td>
-        </tr>
-      <tbody>
+      </tbody>
     </table>
   </div>
 
