@@ -2,7 +2,7 @@
 require "csv"
 require "erb"
 
-__music_table = CSV.table('music-database.csv')
-erb = ERB.new(File.read(ARGV[0]))
+__music_table = CSV.table(ARGV[0])
+erb = ERB.new(File.read(ARGV[1]))
 puts erb.result(binding)
 
