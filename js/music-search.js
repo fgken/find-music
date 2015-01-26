@@ -3,49 +3,53 @@ $(function(){
 		search();
 	});
 	
-	$("table.instrumentation-table").tablesorter();
+	$("input.spinner").spinner({
+		min: 0,
+		spin: function( event, ui ){ setTimeout("search()", 10); }
+	});
+	
+//	$("table.instrumentation-table").tablesorter();
 });
 
+
+
 function search() {
-    var tb_num;
     var artist_name;
     var song_name;
     var hit_count;
 
+	var searchCondition = Array();
 
-    fl_num = $("input#fl").val();
+	$("input.instr").each(function(idx) {
+		searchCondition[$(this).attr("id")] = $(this).val();
+	});
+
+/*    fl_num = $("input#fl").val();
     tb_num = $("input#tb").val();
+	*/
+	//console.log(searchCondition);
 
-    artist_name = $("input#artist").val();
-    song_name = $("input#name").val();
 
     // いったん全部けしてから，
     $("tbody tr").addClass("hide");
 
     hit_count = 0;
     $("tbody tr").each(function(idx) {
-            if (fl_num != "") {
-                if ($(this).data("fl") != fl_num)
-                    return;
-            }
+		for (var key in searchCondition) {
+			var value = searchCondition[key];
 
-            if (tb_num != "") {
-                if ($(this).data("tb") != tb_num)
-                    return;
-            }
+			//console.log(key+","+value);
 
-            if (song_name != "") {
-                if ($(this).data("name").indexOf(song_name) < 0)
-                    return;
-            }
+			if (value == "") continue;
 
-            if (artist_name != "") {
-                if ($(this).data("artist").indexOf(artist_name) < 0)
-                    return;
-            }
+			if ($(this).data(key) != value){
+			   console.log(key + "," + value);
+		   	   return;
+			}
+		}
 
-            hit_count++;
-            $(this).removeClass("hide");
+        hit_count++;
+        $(this).removeClass("hide");
     });
 
     if (hit_count > 0)

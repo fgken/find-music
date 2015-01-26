@@ -31,16 +31,32 @@
     <div class="form-inline form-group">
       <div class="form-group">
           <label for="artist">アーティスト名</label>
-          <input id="artist" type="text" name="artist" class="form-control" />
+          <input id="artist" type="text" name="artist" class="form-control instr" />
           <label for="artist">曲名</label>
-          <input id="name" type="text" name="name" class="form-control" />
+          <input id="name" type="text" name="name" class="form-control instr" />
       </div>
   
       <div class="form-group">
           <label for="fl">フルート</label>
-          <input id="fl" type="text" name="fl" class="form-control" />
+		  <input id="fl" type="text" name="fl" class="form-control instr spinner" />
+          <label for="ob">オーボエ</label>
+          <input id="ob" type="text" name="ob" class="form-control instr spinner" />
+          <label for="cl">クラリネット</label>
+          <input id="cl" type="text" name="cl" class="form-control instr spinner" />
+          <label for="fg">ファゴット</label>
+          <input id="fg" type="text" name="fg" class="form-control instr spinner" />
+          <label for="tp">トランペット</label>
+          <input id="tp" type="text" name="tp" class="form-control instr spinner" />
           <label for="tb">トロンボーン</label>
-          <input id="tb" type="text" name="tb" class="form-control" />
+          <input id="tb" type="text" name="tb" class="form-control instr spinner" />
+          <label for="hr">ホルン</label>
+          <input id="hr" type="text" name="hr" class="form-control instr spinner" />
+          <label for="tuba">チューバ</label>
+          <input id="tuba" type="text" name="tuba" class="form-control instr spinner" />
+          <label for="timp">ティンパニ</label>
+          <input id="timp" type="text" name="timp" class="form-control instr spinner" />
+          <label for="others">その他</label>
+          <input id="others" type="text" name="others" class="form-control instr" />
       </div>
     </div>
   </div>
@@ -118,6 +134,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
   <!-- Find music script -->
   <script src="js/music-search.js"></script>
