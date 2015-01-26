@@ -72,6 +72,10 @@ html = <<"EOS"
 	</div>
   </nav>
 
+  <div class="container" id="infobar">
+    <span id="info"></span>
+  </div>
+
   <div class="container">
     <table class="instrumentation-table table table-striped">
       <thead>

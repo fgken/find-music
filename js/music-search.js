@@ -46,5 +46,8 @@ function search() {
             $(this).removeClass("hide");
     });
 
-    $("span#hitcount").text(" 検索結果:" + hit_count + "件");
+    if (hit_count > 0)
+        $("span#info").text(" 検索結果:" + hit_count + "件").addClass("hitcount").removeClass("error");
+    else
+        $("span#info").text("該当する楽曲がありません").addClass("error").removeClass("hitcount");
 }
