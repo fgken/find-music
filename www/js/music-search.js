@@ -56,9 +56,17 @@ function search() {
 			// ここにくる = 検索条件の指定がある
 			$("button#clear").removeClass("hide");
 
-			if ($(this).data(key) != value){
-			   console.log(key + "," + value);
-		   	   return;
+			if ((key == "artist") ||
+			    (key == "name")   ||
+			    (key == "others")) {
+			    
+			    if ($(this).data(key).indexOf(value) < 0)
+			    	return;
+			} else {
+				if ($(this).data(key) != value){
+				   console.log(key + "," + value);
+			   	   return;
+				}
 			}
 		}
 
