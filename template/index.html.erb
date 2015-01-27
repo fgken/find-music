@@ -125,7 +125,7 @@
       <% __music_table.each_with_index do |__data, __cnt| %>
 		  <tr id="piece<%= __cnt %>" data-artist="<%= __data[:artist] %>" data-name="<%= __data[:name] %>" data-fl="<%= __data[:fl] %>" data-ob="<%= __data[:ob] %>" data-cl="<%= __data[:cl] %>" data-fg="<%= __data[:fg] %>" data-tp="<%= __data[:tp] %>" data-tb="<%= __data[:tb] %>" data-hr="<%= __data[:hr] %>" data-tuba="<%= __data[:tuba] %>" data-timp="<%= __data[:timp] %>" data-others="<%= __data[:others] %>">
 		  <td class="artist"><%= __data[:artist] %></td>
-		  <td class="name"><%= __data[:name] %><a href="https://www.youtube.com/results?search_query=<%= HTMLEntities.new.encode __data[:name] %>" target=_blank> [Go]</td>
+		  <td class="name"><%= __data[:name] %><a href="https://www.youtube.com/results?search_query=<%= HTMLEntities.new.encode __data[:name] %>" target=_blank> Go</td>
 	      <td class="fl"><%= __data[:fl] %></td>
 	      <td class="ob"><%= __data[:ob] %></td>
 	      <td class="cl"><%= __data[:cl] %></td>
