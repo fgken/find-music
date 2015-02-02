@@ -20,6 +20,9 @@ $(function(){
 
 function check_unset(_input, event, ui) {
     var now_val = $(_input).val();
+    if (now_val.length == 0) {
+        now_val = 0;
+    }
     var direction = event.toElement.innerText=="▲"?1:-1;
     var new_val = parseInt(now_val) + parseInt(direction);
 
