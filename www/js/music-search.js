@@ -6,7 +6,7 @@ $(function(){
 	$("input.spinner").spinner({
 		min: -1,
 		spin: function( event, ui ){ setTimeout("search()", 10); },
-//		stop: function( event, ui ){ change_fontsize(this); }
+        start: function (event, ui) { return check_unset(this, event, ui); },
 	});
 	$("input.spinner").width(30);
 	
@@ -18,30 +18,25 @@ $(function(){
 //	$("table.instrumentation-table").tablesorter();
 });
 
+function check_unset(_input, event, ui) {
+    var now_val = $(_input).val();
+    var direction = event.toElement.innerText=="▲"?1:-1;
+    var new_val = parseInt(now_val) + parseInt(direction);
+
+    if (new_val == -1) {
+        $(_input).val("");
+        $(_input).addClass("unset");
+        return false;
+    } else {
+        $(_input).removeClass("unset");
+        return true;
+    }
+}
+
 function clear_search_form() {
 	$("input").val("");
 	search();
 }
-
-// FIXME
-//function hoge(_this, direction) {
-//	console.log(direction);
-//	if(direction == -1){
-//		$(_this).val("");
-//		return false;
-//	}
-//}
-
-
-function change_fontsize(_this) {
-	if( $(_this).val() == "-1" ){
-		$(_this).addClass("unset").val("");
-	}
-	else{
-		$(_this).removeClass("unset");
-	}
-}
-
 
 function search() {
     var artist_name;
@@ -84,7 +79,7 @@ function search() {
 			    	return;
 			} else {
 				if ($(this).data(key) != value){
-				   console.log(key + "," + value);
+//				   console.log(key + "," + value);
 			   	   return;
 				}
 			}
