@@ -33,6 +33,20 @@ function load_all_songs() {
     });
 }
 
+function toggle_each(artist_name, song_count) {
+
+    $("tr.artist_" + artist_name + ".song_" + song_count).toggleClass("hide");
+
+    var max_song = $("tr.artist_" + artist_name).data("songcount");
+    if (song_count < max_song)
+        setTimeout("toggle_each(\"" + artist_name + "\", " + parseInt(song_count + 1) + ")", 5);
+}
+
+function toggle_artist(artist_name) {
+
+    setTimeout("toggle_each(\"" + artist_name + "\", 0)", 20);
+}
+
 function create_table(obj) {
     var song_table = $("table.instrumentation-table tbody");
 
@@ -72,14 +86,18 @@ function create_table(obj) {
             ).append($("<td></td>")
                 .addClass("others")
             ).click(function() {
-                $("tr.artist_" + $(this).data("artist")).toggleClass("hide");
+                toggle_artist($(this).data("artist"));
+//                $("tr.artist_" + $(this).data("artist")).toggleClass("hide");
             });
             song_table.append(artist_bar);
+
+        var song_count = 0;
         for (var _song in obj[artist]) { // 曲のループ
             var song = obj[artist][_song];
 
             song_table.append($("<tr></tr>")
                 .addClass("artist_" + artist_name)
+                .addClass("song_" + song_count)
                 .addClass("hide")
                     .append($("<td></td>")
                         .addClass("artist")
@@ -120,9 +138,11 @@ function create_table(obj) {
                     )
                 );
 
+            song_count++;
             // 曲ごとの<tr class="hide">でつくる
-
         }
+
+        $("tr.artist_" + artist_name).data("songcount", song_count);
 
     }
 }
