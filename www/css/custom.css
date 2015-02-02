@@ -41,3 +41,55 @@ input.unset {
 div.second-line {
 	margin-top: 5px;
 }
+
+
+th.artist {
+    width: 100px;
+}
+
+th.name {
+    width: 400px;
+}
+
+th.fl {
+    width: 30px;
+}
+
+th.ob {
+    width: 30px;
+}
+
+th.cl {
+    width: 30px;
+}
+
+th.fg {
+    width: 30px;
+}
+
+th.tp { 
+    width: 30px;
+}
+
+th.tb {
+    width: 30px;
+}
+
+th.hr {
+    width: 30px;
+}
+
+th.tuba {
+    width: 50px;
+}
+
+th.timp {
+    width: 50px;
+}
+
+th.others {
+    max-width: 290px;
+    min-width: 290px;
+    width: 290px;
+}
+
