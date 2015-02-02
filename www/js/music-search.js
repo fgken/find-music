@@ -4,8 +4,9 @@ $(function(){
 	});
 	
 	$("input.spinner").spinner({
-		min: 0,
-		spin: function( event, ui ){ setTimeout("search()", 10); }
+		min: -1,
+		spin: function( event, ui ){ setTimeout("search()", 10); },
+//		stop: function( event, ui ){ change_fontsize(this); }
 	});
 	$("input.spinner").width(30);
 	
@@ -20,6 +21,25 @@ $(function(){
 function clear_search_form() {
 	$("input").val("");
 	search();
+}
+
+// FIXME
+//function hoge(_this, direction) {
+//	console.log(direction);
+//	if(direction == -1){
+//		$(_this).val("");
+//		return false;
+//	}
+//}
+
+
+function change_fontsize(_this) {
+	if( $(_this).val() == "-1" ){
+		$(_this).addClass("unset").val("");
+	}
+	else{
+		$(_this).removeClass("unset");
+	}
 }
 
 

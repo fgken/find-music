@@ -34,6 +34,10 @@ input#name {
 	width: 400px;
 }
 
+input.unset {
+	font-size: 10px;
+}
+
 div.second-line {
 	margin-top: 5px;
 }
