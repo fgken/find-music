@@ -1,2 +1,5 @@
+TEMPLATE_DIR=$(shell pwd)/www
+
 all:
-	ruby -Eutf-8 build-html.rb database/music-database.csv template/index.html.erb > www/index.html
+	jekyll build -s $(TEMPLATE_DIR) -d $(TEMPLATE_DIR)/_site
+
