@@ -122,25 +122,6 @@
       </thead>
 	  <tbody>
 
-      <% __music_table.each_with_index do |__data, __cnt| %>
-		  <tr id="piece<%= __cnt %>" data-artist="<%= __data[:artist] %>" data-name="<%= __data[:name] %>" data-fl="<%= __data[:fl] %>" data-ob="<%= __data[:ob] %>" data-cl="<%= __data[:cl] %>" data-fg="<%= __data[:fg] %>" data-tp="<%= __data[:tp] %>" data-tb="<%= __data[:tb] %>" data-hr="<%= __data[:hr] %>" data-tuba="<%= __data[:tuba] %>" data-timp="<%= __data[:timp] %>" data-others="<%= __data[:others] %>">
-		  <td class="artist"><%= __data[:artist] %></td>
-		  <td class="name"><%= __data[:name] %><a href="https://www.youtube.com/results?search_query=<%= HTMLEntities.new.encode __data[:name] %>" target=_blank> Go</td>
-	      <td class="fl"><%= __data[:fl] %></td>
-	      <td class="ob"><%= __data[:ob] %></td>
-	      <td class="cl"><%= __data[:cl] %></td>
-	      <td class="fg"><%= __data[:fg] %></td>
-	      <td class="tp"><%= __data[:tp] %></td>
-	      <td class="tb"><%= __data[:tb] %></td>
-	      <td class="hr"><%= __data[:hr] %></td>
-	      <td class="tuba"><%= __data[:tuba] %></td>
-	      <td class="timp"><%= __data[:timp] %></td>
-	      <td class="others"><%= __data[:others] %></td>
-	      <td></td>
-	    </tr>
-      <% end %>
-
-
       </tbody>
     </table>
   </div>

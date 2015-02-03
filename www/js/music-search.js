@@ -14,9 +14,139 @@ $(function(){
 		clear_search_form();
 		$(this).addClass("hide");
 	});
+
+    load_all_songs();
 	
 //	$("table.instrumentation-table").tablesorter();
 });
+
+function load_all_songs() {
+    $.ajax({
+        type: "GET",
+        url: "music.json",
+        dataType: "text",
+        success: function(text) {
+            var obj = eval("(" + text + ")");
+
+            create_table(obj);
+        },
+    });
+}
+
+function toggle_each(artist_name, song_count) {
+
+    $("tr.artist_" + artist_name + ".song_" + song_count).toggleClass("hide");
+
+    var max_song = $("tr.artist_" + artist_name).data("songcount");
+    if (song_count < max_song)
+        setTimeout("toggle_each(\"" + artist_name + "\", " + parseInt(song_count + 1) + ")", 5);
+}
+
+function toggle_artist(artist_name) {
+
+    setTimeout("toggle_each(\"" + artist_name + "\", 0)", 20);
+}
+
+function create_table(obj) {
+    var song_table = $("table.instrumentation-table tbody");
+
+    var artist_name;
+    var song_name;
+
+    for (var artist in obj) { // アーティストのるーぷ
+        artist_name = artist;
+
+        // 作曲者名のかかれた<tr>つくる
+        var artist_bar = $("<tr></tr>")
+            .addClass("artist_bar")
+            .data("artist", artist_name)
+            .append($("<td></td>")
+                .addClass("artist")
+                .text(artist_name)
+            ).append($("<td></td>")
+                .addClass("name")
+            ).append($("<td></td>")
+                .addClass("fl")
+            ).append($("<td></td>")
+                .addClass("ob")
+            ).append($("<td></td>")
+                .addClass("cl")
+            ).append($("<td></td>")
+                .addClass("fg")
+            ).append($("<td></td>")
+                .addClass("tp")
+            ).append($("<td></td>")
+                .addClass("tb")
+            ).append($("<td></td>")
+                .addClass("hr")
+            ).append($("<td></td>")
+                .addClass("tuba")
+            ).append($("<td></td>")
+                .addClass("timp")
+            ).append($("<td></td>")
+                .addClass("others")
+            ).click(function() {
+                toggle_artist($(this).data("artist"));
+//                $("tr.artist_" + $(this).data("artist")).toggleClass("hide");
+            });
+            song_table.append(artist_bar);
+
+        var song_count = 0;
+        for (var _song in obj[artist]) { // 曲のループ
+            var song = obj[artist][_song];
+
+            song_table.append($("<tr></tr>")
+                .addClass("artist_" + artist_name)
+                .addClass("song_" + song_count)
+                .addClass("hide")
+                    .append($("<td></td>")
+                        .addClass("artist")
+                        .text(artist_name)
+                    ).append($("<td></td>")
+                        .addClass("name")
+                        .text(song.name)
+                    ).append($("<td></td>")
+                        .addClass("fl")
+                        .text(song.fl)
+                    ).append($("<td></td>")
+                        .addClass("ob")
+                        .text(song.ob)
+                    ).append($("<td></td>")
+                        .addClass("cl")
+                        .text(song.cl)
+                    ).append($("<td></td>")
+                        .addClass("fg")
+                        .text(song.fg)
+                    ).append($("<td></td>")
+                        .addClass("tp")
+                        .text(song.tp)
+                    ).append($("<td></td>")
+                        .addClass("tb")
+                        .text(song.tb)
+                    ).append($("<td></td>")
+                        .addClass("hr")
+                        .text(song.hr)
+                    ).append($("<td></td>")
+                        .addClass("tuba")
+                        .text(song.tuba)
+                    ).append($("<td></td>")
+                        .addClass("timp")
+                        .text(song.timp)
+                    ).append($("<td></td>")
+                        .addClass("others")
+                        .text(song.others)
+                    )
+                );
+
+            song_count++;
+            // 曲ごとの<tr class="hide">でつくる
+        }
+
+        $("tr.artist_" + artist_name).data("songcount", song_count);
+
+    }
+}
+
 
 function check_unset(_input, event, ui) {
     var now_val = $(_input).val();
