@@ -1,5 +1,6 @@
-TEMPLATE_DIR=$(shell pwd)/www
+TEMPLATE_DIR=$(CURDIR)/template
+DEST_DIR=$(CURDIR)/www
 
 all:
-	jekyll build -s $(TEMPLATE_DIR) -d $(TEMPLATE_DIR)/_site
+	jekyll build -s $(TEMPLATE_DIR) -d $(DEST_DIR)
 
