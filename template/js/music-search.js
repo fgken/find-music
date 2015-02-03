@@ -1,6 +1,9 @@
 
 var music_database = {};
 
+// --------------------------------------
+// --- event: ready ---
+// --------------------------------------
 $(document).ready(function() {
 	// download music database
     $.ajax({
@@ -13,39 +16,12 @@ $(document).ready(function() {
 	});
 });
 
-$(function(){
-	$("input").keyup(function() {
-		search();
-	});
-	
-	$("input.spinner").spinner({
-		min: -1,
-		spin: function( event, ui ){ setTimeout("search()", 10); },
-        start: function (event, ui) { return check_unset(this, event, ui); },
-	});
-	$("input.spinner").width(30);
-	
-	$("button#clear").click(function() {
-		clear_search_form();
-		$(this).addClass("hide");
-	});
 
-//	$("table.instrumentation-table").tablesorter();
-});
 
-function toggle_each(artist_name, song_count) {
 
-    $("tr.artist_" + artist_name + ".song_" + song_count).toggleClass("hide");
-
-    var max_song = $("tr.artist_" + artist_name).data("songcount");
-    if (song_count < max_song)
-        setTimeout("toggle_each(\"" + artist_name + "\", " + parseInt(song_count + 1) + ")", 5);
-}
-
-function toggle_artist(artist_name) {
-
-    setTimeout("toggle_each(\"" + artist_name + "\", 0)", 20);
-}
+// --------------------------------------
+// --- search results table ---
+// --------------------------------------
 
 function update_table(obj) {
     var song_table = $("table.instrumentation-table tbody");
@@ -53,7 +29,10 @@ function update_table(obj) {
     var artist_name;
     var song_name;
 
-    for (var artist in obj) { // アーティストのるーぷ
+	song_table.empty();
+
+	// Each artist
+    for (var artist in obj) {
         artist_name = artist;
 
         // 作曲者名のかかれた<tr>つくる
@@ -98,7 +77,7 @@ function update_table(obj) {
             song_table.append($("<tr></tr>")
                 .addClass("artist_" + artist_name)
                 .addClass("song_" + song_count)
-                .addClass("hide")
+     //           .addClass("hide")
                     .append($("<td></td>")
                         .addClass("artist")
                         .text(artist_name)
@@ -143,8 +122,93 @@ function update_table(obj) {
         }
 
         $("tr.artist_" + artist_name).data("songcount", song_count);
-
     }
+}
+
+function search() {
+	var searchCondition = Array();
+
+	$("input.instr").each(function(idx) {
+		var val = $(this).val();
+		if(val != ""){
+			searchCondition[$(this).attr("id")] = val;
+		}
+	});
+
+	var filtered_data = {}
+
+	// Each artist
+    for (var artist in music_database) {
+		filtered_data[artist] = [];
+
+		// Each music
+        for (var music in music_database[artist]) {
+			var isMached = true;
+			// Filter
+			for (var condition in searchCondition) {
+				if (music_database[artist][music][condition] != searchCondition[condition]) {
+					isMached = false;
+					break;
+				}
+			}
+
+			if( isMached ){
+				filtered_data[artist].push(music_database[artist][music]);
+			}
+		}
+	}
+
+	var delete_key = [];
+	for (var artist in filtered_data) {
+		if(filtered_data[artist] == []) {
+			delete_key.push(artist);
+		}
+	}
+	for (var key in delete_key) {
+		delete filtered_data[key];
+	}
+
+	update_table(filtered_data);
+}
+
+
+
+
+// --------------------------------------
+// --- search boxes ---
+// --------------------------------------
+$(function(){
+	$("input").keyup(function() {
+		search();
+	});
+	
+	$("input.spinner").spinner({
+		min: -1,
+		spin: function( event, ui ){ setTimeout("search()", 10); },
+        //start: function (event, ui) { return check_unset(this, event, ui); },
+	});
+	$("input.spinner").width(30);
+	
+	$("button#clear").click(function() {
+		clear_search_form();
+		$(this).addClass("hide");
+	});
+
+//	$("table.instrumentation-table").tablesorter();
+});
+
+function toggle_each(artist_name, song_count) {
+
+    $("tr.artist_" + artist_name + ".song_" + song_count).toggleClass("hide");
+
+    var max_song = $("tr.artist_" + artist_name).data("songcount");
+    if (song_count < max_song)
+        setTimeout("toggle_each(\"" + artist_name + "\", " + parseInt(song_count + 1) + ")", 5);
+}
+
+function toggle_artist(artist_name) {
+
+    setTimeout("toggle_each(\"" + artist_name + "\", 0)", 20);
 }
 
 
@@ -171,59 +235,3 @@ function clear_search_form() {
 	search();
 }
 
-function search() {
-    var artist_name;
-    var song_name;
-    var hit_count;
-
-	var searchCondition = Array();
-
-	$("input.instr").each(function(idx) {
-		searchCondition[$(this).attr("id")] = $(this).val();
-	});
-
-/*    fl_num = $("input#fl").val();
-    tb_num = $("input#tb").val();
-	*/
-	//console.log(searchCondition);
-
-
-    // いったん全部けしてから，
-    $("tbody tr").addClass("hide");
-    $("button#clear").removeClass("hide");
-
-    hit_count = 0;
-    $("tbody tr").each(function(idx) {
-		for (var key in searchCondition) {
-			var value = searchCondition[key];
-
-			//console.log(key+","+value);
-
-			if (value == "") continue;
-			
-			// ここにくる = 検索条件の指定がある
-			$("button#clear").removeClass("hide");
-
-			if ((key == "artist") ||
-			    (key == "name")   ||
-			    (key == "others")) {
-			    
-			    if ($(this).data(key).indexOf(value) < 0)
-			    	return;
-			} else {
-				if ($(this).data(key) != value){
-//				   console.log(key + "," + value);
-			   	   return;
-				}
-			}
-		}
-
-        hit_count++;
-        $(this).removeClass("hide");
-    });
-
-    if (hit_count > 0)
-        $("span#info").text(" 検索結果:" + hit_count + "件").addClass("hitcount").removeClass("error");
-    else
-        $("span#info").text("該当する楽曲がありません").addClass("error").removeClass("hitcount");
-}
