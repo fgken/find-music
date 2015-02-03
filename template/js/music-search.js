@@ -1,3 +1,18 @@
+
+var music_database = {};
+
+$(document).ready(function() {
+	// download music database
+    $.ajax({
+		type: "GET",
+		url: "music.json",
+		success: function(data) {
+			music_database = data;
+           	update_table(music_database);
+		}
+	});
+});
+
 $(function(){
 	$("input").keyup(function() {
 		search();
@@ -15,23 +30,8 @@ $(function(){
 		$(this).addClass("hide");
 	});
 
-    load_all_songs();
-	
 //	$("table.instrumentation-table").tablesorter();
 });
-
-function load_all_songs() {
-    $.ajax({
-        type: "GET",
-        url: "music.json",
-        dataType: "text",
-        success: function(text) {
-            var obj = eval("(" + text + ")");
-
-            create_table(obj);
-        },
-    });
-}
 
 function toggle_each(artist_name, song_count) {
 
@@ -47,7 +47,7 @@ function toggle_artist(artist_name) {
     setTimeout("toggle_each(\"" + artist_name + "\", 0)", 20);
 }
 
-function create_table(obj) {
+function update_table(obj) {
     var song_table = $("table.instrumentation-table tbody");
 
     var artist_name;
