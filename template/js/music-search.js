@@ -160,12 +160,12 @@ function search() {
 
 	var delete_key = [];
 	for (var artist in filtered_data) {
-		if(filtered_data[artist] == []) {
+		if(filtered_data[artist].length == 0) {
 			delete_key.push(artist);
 		}
 	}
 	for (var key in delete_key) {
-		delete filtered_data[key];
+		delete filtered_data[delete_key[key]];
 	}
 
 	update_table(filtered_data);
