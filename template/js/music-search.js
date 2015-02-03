@@ -201,7 +201,7 @@ $(function(){
 	$("input.spinner").spinner({
 		min: -1,
 		spin: function( event, ui ){ setTimeout("search()", 10); },
-        //start: function (event, ui) { return check_unset(this, event, ui); },
+        start: function (event, ui) { return check_unset(this, event, ui); },
 	});
 	$("input.spinner").width(30);
 	
@@ -233,12 +233,14 @@ function check_unset(_input, event, ui) {
     if (now_val.length == 0) {
         now_val = 0;
     }
-    var direction = event.toElement.innerText=="▲"?1:-1;
+    
+	var direction = event.toElement.innerText=="▲"?1:-1;
     var new_val = parseInt(now_val) + parseInt(direction);
 
     if (new_val == -1) {
         $(_input).val("");
         $(_input).addClass("unset");
+		search();
         return false;
     } else {
         $(_input).removeClass("unset");
