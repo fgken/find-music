@@ -1,5 +1,6 @@
 
 var music_database = {};
+var is_expanded = {};
 
 // --------------------------------------
 // --- event: ready ---
@@ -11,10 +12,20 @@ $(document).ready(function() {
 		url: "music.json",
 		success: function(data) {
 			music_database = data;
+			init_is_expanded(music_database);
            	update_table(music_database);
 		}
 	});
 });
+
+function init_is_expanded(database) {
+	is_expanded = {};
+	for (var artist in database) {
+		is_expanded[artist] = false;
+	}
+
+	console.log(is_expanded);
+}
 
 
 
@@ -74,48 +85,53 @@ function update_table(obj) {
         for (var _song in obj[artist]) { // 曲のループ
             var song = obj[artist][_song];
 
-            song_table.append($("<tr></tr>")
+			var new_row = $("<tr></tr>")
                 .addClass("artist_" + artist_name)
-                .addClass("song_" + song_count)
-     //           .addClass("hide")
-                    .append($("<td></td>")
-                        .addClass("artist")
-                        .text(artist_name)
-                    ).append($("<td></td>")
-                        .addClass("name")
-                        .text(song.name)
-                    ).append($("<td></td>")
-                        .addClass("fl")
-                        .text(song.fl)
-                    ).append($("<td></td>")
-                        .addClass("ob")
-                        .text(song.ob)
-                    ).append($("<td></td>")
-                        .addClass("cl")
-                        .text(song.cl)
-                    ).append($("<td></td>")
-                        .addClass("fg")
-                        .text(song.fg)
-                    ).append($("<td></td>")
-                        .addClass("tp")
-                        .text(song.tp)
-                    ).append($("<td></td>")
-                        .addClass("tb")
-                        .text(song.tb)
-                    ).append($("<td></td>")
-                        .addClass("hr")
-                        .text(song.hr)
-                    ).append($("<td></td>")
-                        .addClass("tuba")
-                        .text(song.tuba)
-                    ).append($("<td></td>")
-                        .addClass("timp")
-                        .text(song.timp)
-                    ).append($("<td></td>")
-                        .addClass("others")
-                        .text(song.others)
-                    )
+                .addClass("song_" + song_count);
+
+			if(is_expanded[artist] == false){
+				new_row.addClass("hide");
+			}
+
+			new_row.append($("<td></td>")
+                    .addClass("artist")
+                    .text(artist_name)
+                ).append($("<td></td>")
+                    .addClass("name")
+                    .text(song.name)
+                ).append($("<td></td>")
+                    .addClass("fl")
+                    .text(song.fl)
+                ).append($("<td></td>")
+                    .addClass("ob")
+                    .text(song.ob)
+                ).append($("<td></td>")
+                    .addClass("cl")
+                    .text(song.cl)
+                ).append($("<td></td>")
+                    .addClass("fg")
+                    .text(song.fg)
+                ).append($("<td></td>")
+                    .addClass("tp")
+                    .text(song.tp)
+                ).append($("<td></td>")
+                    .addClass("tb")
+                    .text(song.tb)
+                ).append($("<td></td>")
+                    .addClass("hr")
+                    .text(song.hr)
+                ).append($("<td></td>")
+                    .addClass("tuba")
+                    .text(song.tuba)
+                ).append($("<td></td>")
+                    .addClass("timp")
+                    .text(song.timp)
+                ).append($("<td></td>")
+                    .addClass("others")
+                    .text(song.others)
                 );
+            
+			song_table.append(new_row);
 
             song_count++;
             // 曲ごとの<tr class="hide">でつくる
@@ -207,7 +223,7 @@ function toggle_each(artist_name, song_count) {
 }
 
 function toggle_artist(artist_name) {
-
+	is_expanded[artist_name] = !is_expanded[artist_name];
     setTimeout("toggle_each(\"" + artist_name + "\", 0)", 20);
 }
 
