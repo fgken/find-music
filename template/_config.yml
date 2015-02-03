@@ -1,0 +1,5 @@
+gems:
+    - octopress-minify-html
+
+#env: production
+minify_html: false
